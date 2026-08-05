@@ -1,10 +1,11 @@
+import Navbar from "./components/common/Navbar"
 
 function App() {
 
   return (
     <>
-    <button class="btn">Button</button>
-    <div className="text-red-700">Frontend Initialized</div>
+      <Navbar/>
+      <div className="text-red-700">Frontend Initialized</div>
     </>
   )
 }
