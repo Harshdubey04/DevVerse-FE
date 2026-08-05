@@ -1,12 +1,13 @@
-import Navbar from "./components/common/Navbar"
+import { Route,Routes } from "react-router"
+import LoginPage from "./pages/auth/LoginPage"
 
 function App() {
 
   return (
-    <>
-      <Navbar/>
-      <div className="text-red-700">Frontend Initialized</div>
-    </>
+    <Routes>
+      <Route path="/" element={<LoginPage/>}></Route>
+      <Route path="/login" element={<LoginPage/>}></Route>
+    </Routes>
   )
 }
 
