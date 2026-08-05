@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../../schemas/loginSchema";
-
-
+import { useState } from "react";
+import { Eye,EyeOff } from 'lucide-react';
 
 function LoginForm() {
   const {
@@ -16,6 +16,7 @@ function LoginForm() {
       password: "",
     },
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -59,13 +60,24 @@ function LoginForm() {
               Password
             </legend>
 
-            <input
-              type="password"
-              placeholder="Enter your password"
-              className={`input input-bordered w-full ${errors.password ? "input-error" : ""
-                }`}
-              {...register("password")}
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
+                className={`input input-bordered w-full ${errors.password ? "input-error" : ""
+                  }`}
+                {...register("password")}
+              />
+
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-sm"
+              >
+                {showPassword ? <EyeOff /> : <Eye />}
+              </button>
+            </div>
+
 
             {errors.password && (
               <p className="text-error text-sm mt-1">
