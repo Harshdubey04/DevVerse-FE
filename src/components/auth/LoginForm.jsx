@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Eye, EyeOff } from 'lucide-react';
 import { loginUser } from "../../api/authApi";
 import { useNavigate } from "react-router";
+import { Link } from "react-router";
 
 function LoginForm() {
   const {
@@ -29,7 +30,7 @@ function LoginForm() {
       setLoading(true);
       setServerError("");
       const response = await loginUser(data);
-      console.log(response);
+      // console.log(response);
       navigate("/feed");
     }
     catch (error) {
@@ -124,9 +125,9 @@ function LoginForm() {
 
           <p className="text-center mt-6">
             Don't have an account?{" "}
-            <button className="link link-primary font-semibold">
+            <Link to="/signup" className="link link-primary font-semibold">
               Sign Up
-            </button>
+            </Link>
           </p>
 
         </div>
