@@ -2,7 +2,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "../../schemas/loginSchema";
 import { useState } from "react";
-import { Eye,EyeOff } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
+import { loginUser } from "../../api/authApi";
+import { useNavigate } from "react-router";
 
 function LoginForm() {
   const {
@@ -16,13 +18,28 @@ function LoginForm() {
       password: "",
     },
   });
+
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [serverError, setServerError] = useState("");
+  const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      setLoading(true);
+      setServerError("");
+      const response = await loginUser(data);
+      console.log(response);
+      navigate("/feed");
+    }
+    catch (error) {
+      setServerError(
+        error?.response?.data?.message || "Something went wrong"
+      )
+    } finally {
+      setLoading(false);
+    }
   };
-
-
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -87,8 +104,22 @@ function LoginForm() {
 
           </fieldset>
 
-          <button type="submit" className="btn btn-primary w-full mt-6">
-            Sign In
+          {serverError && (
+            <div className="alert alert-error mt-4">
+              <span>{serverError}</span>
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className="btn btn-primary w-full mt-6"
+            disabled={loading}
+          >
+            {loading ? (
+              <span className="loading loading-spinner loading-sm"></span>
+            ) : (
+              "Sign In"
+            )}
           </button>
 
           <p className="text-center mt-6">
