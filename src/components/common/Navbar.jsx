@@ -1,36 +1,107 @@
+import { Link, NavLink } from "react-router";
+import logo from "../../assets/images/DevVerseLogo.png";
 
-const Navbar = () => {
+function Navbar() {
   return (
-    <div className="navbar bg-base-100 shadow-sm">
-        <div className="flex-1">
-          <a className="btn btn-ghost text-xl">DevVerse</a>
-        </div>
-        <div className="flex gap-2">
-          
-          <div className="dropdown dropdown-end mx-6">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS Navbar component"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-              </div>
-            </div>
-            <ul
-              tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-              <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
-              </li>
-              <li><a>Settings</a></li>
-              <li><a>Logout</a></li>
-            </ul>
+    <div className="navbar bg-base-100 shadow-md px-4 lg:px-8">
+      {/* Left */}
+      <div className="navbar-start">
+        <div className="dropdown lg:hidden">
+          <div tabIndex={0} role="button" className="btn btn-ghost">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h8m-8 6h16"
+              />
+            </svg>
           </div>
+
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow"
+          >
+            <li>
+              <NavLink to="/feed">Feed</NavLink>
+            </li>
+
+            <li>
+              <NavLink to="/requests">Requests</NavLink>
+            </li>
+
+            <li>
+              <NavLink to="/connections">Connections</NavLink>
+            </li>
+          </ul>
+        </div>
+        <Link to="/feed" className="flex items-center gap-3">
+          <img
+            src={logo}
+            alt="DevVerse"
+            className="w-10 h-10 object-contain"
+          />
+          <span className="text-2xl font-bold">DevVerse</span>
+        </Link>
+      </div>
+
+      {/* Center */}
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal px-1 gap-2">
+          <li>
+            <NavLink to="/feed">Feed</NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/requests">Requests</NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/connections">Connections</NavLink>
+          </li>
+        </ul>
+      </div>
+
+      {/* Right */}
+      <div className="navbar-end">
+        <div className="dropdown dropdown-end">
+          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+            <div className="w-10 rounded-full">
+              <img
+                alt="User Avatar"
+                src="https://ui-avatars.com/api/?name=H&background=0D8ABC&color=fff"
+              />
+            </div>
+          </div>
+
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-10 mt-3 w-52 p-2 shadow"
+          >
+            <li>
+              <NavLink to="/profile">Profile</NavLink>
+            </li>
+
+            <li>
+              <NavLink to="/profile/edit">Edit Profile</NavLink>
+            </li>
+
+            <div className="divider my-1"></div>
+
+            <li>
+              <button>Logout</button>
+            </li>
+          </ul>
         </div>
       </div>
-  )
+    </div>
+  );
 }
 
-export default Navbar
+export default Navbar;
