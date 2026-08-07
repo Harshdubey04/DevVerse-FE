@@ -41,7 +41,7 @@ function LoginForm() {
     }
     catch (error) {
       setServerError(
-        error?.response?.data?.message || "Something went wrong"
+        error?.message || "Something went wrong"
       )
     } finally {
       setLoading(false);

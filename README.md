@@ -8,3 +8,8 @@
 -Install axios
 -CORS-Install cors in backend=>add middleware to app.js with configurations:origin, credentials:true
 -In Frontend whenever you are making api call pass axios=>{withcredentials:true}  otherwise cookies will not be sent.
+-the login and signup page is created
+-basic routing is done and the basic folder structure is created
+-navbar is created
+-after the user is logged in the redux store is created to store the authenticated user's data\
+-

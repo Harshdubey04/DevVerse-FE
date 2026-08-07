@@ -1,7 +1,12 @@
 import { Link, NavLink } from "react-router";
 import logo from "../../assets/images/DevVerseLogo.png";
+import { useSelector } from "react-redux";
 
 function Navbar() {
+
+  const user=useSelector(store=>store?.auth?.user);
+  // console.log("user is "+user?.firstName);
+
   return (
     <div className="navbar bg-base-100 shadow-md px-4 lg:px-8">
       {/* Left */}
@@ -71,14 +76,14 @@ function Navbar() {
       {/* Right */}
       <div className="navbar-end">
         <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+          { user && <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
               <img
                 alt="User Avatar"
-                src="https://ui-avatars.com/api/?name=H&background=0D8ABC&color=fff"
+                src={user?.photoURL}
               />
             </div>
-          </div>
+          </div>}
 
           <ul
             tabIndex={0}
