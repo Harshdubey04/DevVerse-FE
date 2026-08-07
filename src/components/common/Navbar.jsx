@@ -1,11 +1,27 @@
-import { Link, NavLink } from "react-router";
+import { Link, Navigate, NavLink, useNavigate } from "react-router";
 import logo from "../../assets/images/DevVerseLogo.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../api/authApi";
+import { removeUser } from "../../slices/authSlice";
 
 function Navbar() {
 
   const user=useSelector(store=>store?.auth?.user);
-  // console.log("user is "+user?.firstName);
+  
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
+
+  const handleLogout=async ()=>{
+    try{
+
+      const response=await logoutUser();
+      
+      dispatch(removeUser());
+      navigate('/login');
+    }catch(err){
+      console.log(err);
+    }
+  }
 
   return (
     <div className="navbar bg-base-100 shadow-md px-4 lg:px-8">
@@ -100,7 +116,7 @@ function Navbar() {
             <div className="divider my-1"></div>
 
             <li>
-              <button>Logout</button>
+              <button onClick={handleLogout}>Logout</button>
             </li>
           </ul>
         </div>

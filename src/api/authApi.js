@@ -20,3 +20,14 @@ export const signupUser=async(credentials)=>{
         throw error.response?.data || error.message;
     }
 } 
+
+export const logoutUser=async()=>{
+    try{
+        const response=await axiosInstance.post("/logout");
+        // console.log("authapi response ka data",response);
+        return response.data;
+    }
+    catch(error){
+        throw error.response?.data || error.message;
+    }
+}

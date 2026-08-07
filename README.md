@@ -15,3 +15,8 @@
 -Persistent login-After reload 1st make /profile/view api call to find user and put it in the store
 -Protected route-if user is authenticated show the children components if it is not authenticated navigate to /login
 -GuestRoute-if user is  authenticated navigate to /feed and if not authenticated show the login page
+-Logout user api implemented-when u click on logout button,logout api is called->clear the store->navigate to /login 
+
+
+
+
