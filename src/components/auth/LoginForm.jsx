@@ -6,6 +6,8 @@ import { Eye, EyeOff } from 'lucide-react';
 import { loginUser } from "../../api/authApi";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
+import { useDispatch } from "react-redux";
+import { addUser } from "../../slices/authSlice";
 
 function LoginForm() {
   const {
@@ -24,6 +26,7 @@ function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState("");
   const navigate = useNavigate();
+  const dispatch=useDispatch();
 
   const onSubmit = async (data) => {
     try {
@@ -31,6 +34,9 @@ function LoginForm() {
       setServerError("");
       const response = await loginUser(data);
       // console.log(response);
+      // console.log(response.data);
+      //Adding data to the store
+      dispatch(addUser(response.data));
       navigate("/feed");
     }
     catch (error) {

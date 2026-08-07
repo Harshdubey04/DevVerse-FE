@@ -6,6 +6,8 @@ import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router";
 import { signupSchema } from "../../schemas/signupSchema";
 import { signupUser } from "../../api/authApi";
+import { addUser } from "../../slices/authSlice";
+import { useDispatch } from "react-redux";
 
 function SignupForm() {
   const {
@@ -26,6 +28,7 @@ function SignupForm() {
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState("");
   const navigate = useNavigate();
+  const dispatch=useDispatch();
 
   const onSubmit = async (data) => {
     try {
@@ -33,6 +36,8 @@ function SignupForm() {
       setServerError("");
 
       const response = await signupUser(data);
+      //Adding data to the store
+      dispatch(addUser(response.data));
       navigate("/feed");
 
     } catch (error) {
