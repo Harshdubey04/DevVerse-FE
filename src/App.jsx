@@ -10,23 +10,32 @@ import RequestsPage from "./pages/requests/RequestsPage";
 import ConnectionsPage from "./pages/connections/ConnectionsPage";
 
 import MainLayout from "./layouts/MainLayout";
+import ProtectedRoute from "./components/common/ProtectedRoute"
+import GuestRoute from "./components/common/GuestRoute";
 
 function App() {
   return (
     <Routes>
       {/* Public Routes */}
+      <Route element={<GuestRoute />}>
       <Route path="/" element={<LoginPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
+      </Route>
 
       {/* Protected Layout */}
-      <Route element={<MainLayout />}>
-        <Route path="/feed" element={<FeedPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/profile/edit" element={<EditProfilePage />} />
-        <Route path="/requests" element={<RequestsPage />} />
-        <Route path="/connections" element={<ConnectionsPage />} />
-      </Route>
+      
+      <Route element={<ProtectedRoute />}>
+        <Route element={<MainLayout />}>
+          <Route path="/feed" element={<FeedPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile/edit" element={<EditProfilePage />} />
+          <Route path="/requests" element={<RequestsPage />} />
+          <Route path="/connections" element={<ConnectionsPage />} />
+        </Route>
+        </Route>
+      
+
     </Routes>
   );
 }

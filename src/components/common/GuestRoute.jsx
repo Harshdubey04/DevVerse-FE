@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router";
 import { useSelector } from "react-redux";
 
-function ProtectedRoute() {
+function GuestRoute() {
   const { isAuthenticated, isLoading } = useSelector((store) => store.auth);
 
   if (isLoading) {
@@ -12,11 +12,11 @@ function ProtectedRoute() {
     );
   }
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+  if (isAuthenticated) {
+    return <Navigate to="/feed" replace />;
   }
 
   return <Outlet />;
 }
 
-export default ProtectedRoute;
+export default GuestRoute;

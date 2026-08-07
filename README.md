@@ -11,5 +11,7 @@
 -the login and signup page is created
 -basic routing is done and the basic folder structure is created
 -navbar is created
--after the user is logged in the redux store is created to store the authenticated user's data\
--
+-after the user is logged in the redux store is created to store the authenticated user's data
+-Persistent login-After reload 1st make /profile/view api call to find user and put it in the store
+-Protected route-if user is authenticated show the children components if it is not authenticated navigate to /login
+-GuestRoute-if user is  authenticated navigate to /feed and if not authenticated show the login page
