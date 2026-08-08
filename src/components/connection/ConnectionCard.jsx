@@ -10,36 +10,53 @@ function ConnectionCard({ user }) {
   } = user;
 
   return (
-    <div className="card bg-base-100 shadow-md">
-      <figure className="px-5 pt-5">
-        <img
-          src={photoURL}
-          alt={`${firstName} ${lastName}`}
-          className="h-48 w-full rounded-xl object-cover"
-        />
-      </figure>
+    <div className="flex items-center gap-5 p-5 border-b border-base-300">
 
-      <div className="card-body">
-        <h2 className="card-title">
+      {/* Profile Image */}
+      <div className="avatar shrink-0">
+        <div className="w-20 rounded-full">
+          <img
+            src={photoURL}
+            alt={`${firstName} ${lastName}`}
+          />
+        </div>
+      </div>
+
+      {/* User Info */}
+      <div className="flex-1 min-w-0">
+
+        <h2 className="text-lg font-semibold">
           {firstName} {lastName}
         </h2>
 
-        <p className="text-sm opacity-70">
+        <p className="text-sm opacity-60">
           {age} · {gender}
         </p>
 
-        <p className="line-clamp-2">
+        <p className="text-sm mt-1 line-clamp-1">
           {about}
         </p>
 
         <div className="flex flex-wrap gap-2 mt-2">
-          {skills?.map((skill) => (
-            <span key={skill} className="badge badge-primary">
+          {skills?.slice(0, 4).map((skill) => (
+            <span
+              key={skill}
+              className="badge badge-sm badge-outline"
+            >
               {skill}
             </span>
           ))}
         </div>
+
       </div>
+
+      {/* Action */}
+      <div className="shrink-0">
+        <button className="btn btn-outline btn-primary">
+          View Profile
+        </button>
+      </div>
+
     </div>
   );
 }

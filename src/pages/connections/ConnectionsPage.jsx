@@ -32,7 +32,7 @@ function ConnectionPage() {
         </h1>
 
         {connections.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="bg-base-100 rounded-box shadow-sm overflow-hidden">
             {connections.map((user) => (
               <ConnectionCard
                 key={user._id}
