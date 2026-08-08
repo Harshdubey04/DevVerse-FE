@@ -11,3 +11,13 @@ export const getFeed=async(page=1,limit=10)=>{
         throw error.response?.data || error.message;
     }
 }
+
+export const getConnections=async()=>{
+    try{
+        const response=await axiosInstance.get("/user/connections");
+        return response.data;
+
+    }catch (error) {
+        throw error.response?.data || error.message;
+    }
+}

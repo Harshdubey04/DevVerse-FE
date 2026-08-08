@@ -1,11 +1,56 @@
-import React from 'react'
+import { useSelector } from "react-redux";
+import useConnections from "../../hooks/useConnections";
+import ConnectionCard from "../../components/connection/ConnectionCard";
 
-const ConnectionsPage = () => {
+function ConnectionPage() {
+  useConnections();
+
+  const {connections,isLoading,error,} = useSelector((store) => store.connection);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-error">{error}</p>
+      </div>
+    );
+  }
+
   return (
-    <div>
-      Connctions page
+    <div className="min-h-screen px-4 py-8">
+      <div className="max-w-6xl mx-auto">
+
+        <h1 className="text-3xl font-bold mb-8">
+          My Connections
+        </h1>
+
+        {connections.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {connections.map((user) => (
+              <ConnectionCard
+                key={user._id}
+                user={user}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-20">
+            <p className="text-lg opacity-60">
+              You don't have any connections yet.
+            </p>
+          </div>
+        )}
+
+      </div>
     </div>
-  )
+  );
 }
 
-export default ConnectionsPage
+export default ConnectionPage;
