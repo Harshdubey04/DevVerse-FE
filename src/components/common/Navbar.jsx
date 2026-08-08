@@ -24,7 +24,7 @@ function Navbar() {
   }
 
   return (
-    <div className="navbar bg-base-100 shadow-md px-4 lg:px-8">
+    <div className="navbar bg-base-100 shadow-md px-4 lg:px-8 sticky top-0 z-50">
       {/* Left */}
       <div className="navbar-start">
         <div className="dropdown lg:hidden">
@@ -110,7 +110,7 @@ function Navbar() {
             </li>
 
             <li>
-              <NavLink to="/profile/edit">Edit Profile</NavLink>
+              <NavLink to="/profile/editProfile">Edit Profile</NavLink>
             </li>
 
             <div className="divider my-1"></div>
