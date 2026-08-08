@@ -29,7 +29,7 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/feed" element={<FeedPage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/profile/edit" element={<EditProfilePage />} />
+          <Route path="/profile/editProfile" element={<EditProfilePage />} />
           <Route path="/requests" element={<RequestsPage />} />
           <Route path="/connections" element={<ConnectionsPage />} />
         </Route>
