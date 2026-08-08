@@ -9,3 +9,15 @@ export const getUser=async()=>{
         throw error.response?.data || error.message;
     }
 }
+
+export const editProfile=async(updateData)=>{
+    try{
+        const response=await axiosInstance.patch("/profile/editProfile",updateData);
+        // console.log("edit profile api data :",response.data);
+        return response.data;
+    }
+    catch (error) {
+        throw error.response?.data || error.message;
+    }
+}
+
