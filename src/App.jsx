@@ -6,12 +6,12 @@ import SignupPage from "./pages/auth/SignupPage";
 import FeedPage from "./pages/feed/FeedPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import EditProfilePage from "./pages/profile/EditProfilePage";
-import RequestsPage from "./pages/requests/RequestsPage";
 import ConnectionsPage from "./pages/connections/ConnectionsPage";
 
 import MainLayout from "./layouts/MainLayout";
 import ProtectedRoute from "./components/common/ProtectedRoute"
 import GuestRoute from "./components/common/GuestRoute";
+import ConnectionRequestPage from "./pages/connections/ConnectionRequestPage";
 
 function App() {
   return (
@@ -30,8 +30,9 @@ function App() {
           <Route path="/feed" element={<FeedPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/profile/editProfile" element={<EditProfilePage />} />
-          <Route path="/requests" element={<RequestsPage />} />
+          <Route path="/requests" element={<ConnectionRequestPage />} />
           <Route path="/connections" element={<ConnectionsPage />} />
+          
         </Route>
         </Route>
       

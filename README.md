@@ -20,7 +20,12 @@
 -Edit profile api made.
 -The cors issue with patch api is solved using vite.config.js file.
 -My Connections page is build-setup the  conneciton store,used custom  hooks and connection card component made.
--
+
+-TODO: View profile login-get the userid of the connection -navigate to /profile/:id -profile page gets the user id from url - fetch the profile data
+
+-Connection Request page created
+
+
 
 
 

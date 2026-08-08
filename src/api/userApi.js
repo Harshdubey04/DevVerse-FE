@@ -21,3 +21,13 @@ export const getConnections=async()=>{
         throw error.response?.data || error.message;
     }
 }
+
+export const getConnectionRequests=async()=>{
+    try{
+        const response=await axiosInstance.get("user/requests/received");
+        return response?.data;
+
+    }catch (error) {
+        throw error.response?.data || error.message;
+    }
+}

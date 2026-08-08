@@ -8,7 +8,7 @@ const connectionSlice = createSlice({
         error: null,
     },
     reducers: {
-        setConnections: (state, action) => {
+      setConnections: (state, action) => {
       state.connections = action.payload;
       state.isLoading = false;
       state.error = null;
