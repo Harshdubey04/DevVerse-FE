@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { sendInterestedRequest, sendIgnoreRequest } from "../../api/connectionRequestApi";
+import {sendInterestedRequest,sendIgnoreRequest} from "../../api/connectionRequestApi";
 import { removeUserFromFeed } from "../../slices/userSlice";
 
-function UserCard({ user }) {
+function UserCard({user,onActionSuccess,onActionError,}) {
   const {
     firstName,
     lastName,
@@ -25,11 +25,12 @@ function UserCard({ user }) {
 
       dispatch(removeUserFromFeed(user._id));
 
+      onActionSuccess("Connection request sent!");
     } catch (error) {
-      console.error(
-        "INTERESTED REQUEST ERROR:",
-        error.response?.data || error
-      )
+      onActionError(
+        error.response?.data?.message ||
+          "Failed to send connection request."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -43,24 +44,20 @@ function UserCard({ user }) {
 
       dispatch(removeUserFromFeed(user._id));
 
-      setToast({
-        type: "success",
-        message: "User ignored.",
-      });
+      onActionSuccess("User ignored.","error");
     } catch (error) {
-      console.error(
-        "IGNORE REQUEST ERROR:",
-        error.response?.data || error
-      )
-    }
-    finally {
+      onActionError(
+        error.response?.data?.message ||
+          "Failed to ignore user."
+      );
+    } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="card w-full max-w-md bg-base-100 shadow-xl">
-      <figure className="px-6 pt-6">
+    <div className="card bg-base-100 shadow-xl w-full">
+      <figure className="px-4 pt-4">
         <img
           src={photoURL}
           alt={`${firstName} ${lastName}`}
@@ -83,7 +80,10 @@ function UserCard({ user }) {
 
         <div className="flex flex-wrap gap-2 mt-3">
           {skills?.map((skill) => (
-            <span key={skill} className="badge badge-primary">
+            <span
+              key={skill}
+              className="badge badge-primary"
+            >
               {skill}
             </span>
           ))}
@@ -107,7 +107,11 @@ function UserCard({ user }) {
             disabled={isLoading}
             className="btn btn-outline"
           >
-            Ignore
+            {isLoading ? (
+              <span className="loading loading-spinner loading-sm"></span>
+            ) : (
+              "Ignore"
+            )}
           </button>
         </div>
       </div>
