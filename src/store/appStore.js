@@ -3,6 +3,7 @@ import authReducer from '../slices/authSlice'
 import userReducer from '../slices/userSlice'
 import connectionReducer from "../slices/connetionSlice"
 import connectionRequestReducer from "../slices/connectionRequestSlice"
+import profileReducer from "../slices/profileSlice";
 
 const appStore= configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const appStore= configureStore({
     user:userReducer,
     connection:connectionReducer,
     connectionRequest:connectionRequestReducer,
+    profile: profileReducer,
   },
 
 })

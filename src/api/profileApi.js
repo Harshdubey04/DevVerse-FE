@@ -21,3 +21,12 @@ export const editProfile=async(updateData)=>{
     }
 }
 
+export const getUserProfile=async(userId)=>{
+    try{
+        const response=await axiosInstance.get(`/profile/${userId}`);
+        return response.data;
+    }
+    catch (error) {
+        throw error.response?.data || error.message;
+    }
+}

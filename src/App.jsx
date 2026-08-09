@@ -12,6 +12,7 @@ import MainLayout from "./layouts/MainLayout";
 import ProtectedRoute from "./components/common/ProtectedRoute"
 import GuestRoute from "./components/common/GuestRoute";
 import ConnectionRequestPage from "./pages/connections/ConnectionRequestPage";
+import UserProfilePage from "./pages/profile/UserProfilePage";
 
 function App() {
   return (
@@ -32,6 +33,8 @@ function App() {
           <Route path="/profile/editProfile" element={<EditProfilePage />} />
           <Route path="/requests" element={<ConnectionRequestPage />} />
           <Route path="/connections" element={<ConnectionsPage />} />
+          <Route path="/profile/:userId" element={<UserProfilePage />}
+/>
           
         </Route>
         </Route>

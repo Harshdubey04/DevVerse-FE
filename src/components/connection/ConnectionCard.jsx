@@ -1,3 +1,5 @@
+import {useNavigate } from "react-router";
+
 function ConnectionCard({ user }) {
   const {
     firstName,
@@ -8,6 +10,8 @@ function ConnectionCard({ user }) {
     about,
     skills,
   } = user;
+
+  const navigate=useNavigate();
 
   return (
     <div className="flex items-center gap-5 p-5 border-b border-base-300">
@@ -52,7 +56,11 @@ function ConnectionCard({ user }) {
 
       {/* Action */}
       <div className="shrink-0">
-        <button className="btn btn-outline btn-primary">
+        <button
+        
+          onClick={() => navigate(`/profile/${user._id}`)}
+           className="btn btn-outline btn-info"
+        >
           View Profile
         </button>
       </div>

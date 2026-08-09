@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import {acceptConnectionRequest,rejectConnectionRequest} from "../../api/connectionRequestApi";
+import { acceptConnectionRequest, rejectConnectionRequest } from "../../api/connectionRequestApi";
 
 import { removeRequest } from "../../slices/connectionRequestSlice";
+import { useNavigate } from "react-router";
 
 function ConnectionRequestCard({ request }) {
   const dispatch = useDispatch();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const user = request.fromUserId;
 
@@ -33,7 +35,7 @@ function ConnectionRequestCard({ request }) {
     } catch (error) {
       setError(
         error.response?.data?.message ||
-          "Failed to accept request."
+        "Failed to accept request."
       );
     } finally {
       setIsLoading(false);
@@ -51,7 +53,7 @@ function ConnectionRequestCard({ request }) {
     } catch (error) {
       setError(
         error.response?.data?.message ||
-          "Failed to reject request."
+        "Failed to reject request."
       );
     } finally {
       setIsLoading(false);
@@ -91,6 +93,13 @@ function ConnectionRequestCard({ request }) {
       </div>
 
       <div className="flex gap-2 shrink-0">
+        <button
+        
+          onClick={() => navigate(`/profile/${user._id}`)}
+           className="btn btn-outline btn-info"
+        >
+          View Profile
+        </button>
         <button
           onClick={handleAccept}
           disabled={isLoading}
