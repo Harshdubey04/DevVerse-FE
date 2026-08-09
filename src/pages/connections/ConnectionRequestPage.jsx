@@ -41,10 +41,10 @@ function ConnectionRequestPage() {
           </p>
         ) : (
           <div className="bg-base-100 rounded-box shadow-sm overflow-hidden">
-            {requests.map((user) => (
+            {requests.map((request) => (
               <ConnectionRequestCard
-                key={user._id}
-                user={user}
+                key={request._id}
+                request={request}
               />
             ))}
           </div>

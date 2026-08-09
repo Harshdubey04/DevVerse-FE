@@ -11,7 +11,8 @@ function useConnectionRequests() {
         const fetchRequests=async () => {
             try {
                 const response = await getConnectionRequests();
-                dispatch(sendRequests(response?.data))
+                // console.log("Hook ka response",response);
+                dispatch(sendRequests(response))
             }
             catch (error) {
                 const message =
