@@ -11,10 +11,13 @@ const userSlice=createSlice({
         },
         clearUsers:(state)=>{
             state.users=[]
-        }
+        },
+        removeUserFromFeed:(state,action)=>{
+            state.users=state.users.filter((user)=>user._id!==action.payload);
+        },
     }
 });
 
-export const{setUsers,clearUsers}=userSlice.actions;
+export const{setUsers,clearUsers,removeUserFromFeed}=userSlice.actions;
 export default userSlice.reducer;
 

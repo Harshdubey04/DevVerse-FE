@@ -24,6 +24,8 @@
 -TODO: View profile login-get the userid of the connection -navigate to /profile/:id -profile page gets the user id from url - fetch the profile data
 
 -Connection Request page created
+-Accept and remove connection request feature built
+ 
 
 
 

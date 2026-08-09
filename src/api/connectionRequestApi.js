@@ -26,3 +26,30 @@ export const rejectConnectionRequest = async (requestId) => {
         throw error.response?.data || error.message;
     }
 };
+
+export const sendInterestedRequest = async (userId) => {
+    try {
+        const response = await axiosInstance.post(
+            `/request/send/interested/${userId}`
+        );
+
+        return response.data;
+    }
+    catch (error) {
+        throw error.response?.data || error.message;
+    }
+};
+
+export const sendIgnoreRequest  = async (userId) => {
+    try {
+        const response = await axiosInstance.post(
+            `/request/send/ignored/${userId}`
+        );
+
+        return response.data;
+    }
+    catch (error) {
+        throw error.response?.data || error.message;
+    }
+};
+

@@ -1,3 +1,8 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { sendInterestedRequest, sendIgnoreRequest } from "../../api/connectionRequestApi";
+import { removeUserFromFeed } from "../../slices/userSlice";
+
 function UserCard({ user }) {
   const {
     firstName,
@@ -8,6 +13,50 @@ function UserCard({ user }) {
     about,
     skills,
   } = user;
+
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleInterested = async () => {
+    setIsLoading(true);
+
+    try {
+      await sendInterestedRequest(user._id);
+
+      dispatch(removeUserFromFeed(user._id));
+
+    } catch (error) {
+      console.error(
+        "INTERESTED REQUEST ERROR:",
+        error.response?.data || error
+      )
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleIgnore = async () => {
+    setIsLoading(true);
+
+    try {
+      await sendIgnoreRequest(user._id);
+
+      dispatch(removeUserFromFeed(user._id));
+
+      setToast({
+        type: "success",
+        message: "User ignored.",
+      });
+    } catch (error) {
+      console.error(
+        "IGNORE REQUEST ERROR:",
+        error.response?.data || error
+      )
+    }
+    finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="card w-full max-w-md bg-base-100 shadow-xl">
@@ -41,12 +90,24 @@ function UserCard({ user }) {
         </div>
 
         <div className="card-actions justify-between mt-5">
-          <button className="btn btn-outline btn-error">
-            Ignore
+          <button
+            onClick={handleInterested}
+            disabled={isLoading}
+            className="btn btn-primary"
+          >
+            {isLoading ? (
+              <span className="loading loading-spinner loading-sm"></span>
+            ) : (
+              "Interested"
+            )}
           </button>
 
-          <button className="btn btn-primary">
-            Interested
+          <button
+            onClick={handleIgnore}
+            disabled={isLoading}
+            className="btn btn-outline"
+          >
+            Ignore
           </button>
         </div>
       </div>
