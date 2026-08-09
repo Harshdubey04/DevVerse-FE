@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import {sendInterestedRequest,sendIgnoreRequest} from "../../api/connectionRequestApi";
+import { useNavigate } from "react-router";
+
+import {
+  sendInterestedRequest,
+  sendIgnoreRequest,
+} from "../../api/connectionRequestApi";
+
 import { removeUserFromFeed } from "../../slices/userSlice";
 
-function UserCard({user,onActionSuccess,onActionError,}) {
+function UserCard({ user, onActionSuccess, onActionError }) {
   const {
     firstName,
     lastName,
@@ -15,10 +21,12 @@ function UserCard({user,onActionSuccess,onActionError,}) {
   } = user;
 
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const [action, setAction] = useState(null);
 
   const handleInterested = async () => {
-    setIsLoading(true);
+    setAction("interested");
 
     try {
       await sendInterestedRequest(user._id);
@@ -32,88 +40,129 @@ function UserCard({user,onActionSuccess,onActionError,}) {
           "Failed to send connection request."
       );
     } finally {
-      setIsLoading(false);
+      setAction(null);
     }
   };
 
   const handleIgnore = async () => {
-    setIsLoading(true);
+    setAction("ignore");
 
     try {
       await sendIgnoreRequest(user._id);
 
       dispatch(removeUserFromFeed(user._id));
 
-      onActionSuccess("User ignored.","error");
+      onActionSuccess("User ignored.", "error");
     } catch (error) {
       onActionError(
         error.response?.data?.message ||
           "Failed to ignore user."
       );
     } finally {
-      setIsLoading(false);
+      setAction(null);
     }
   };
 
   return (
-    <div className="card bg-base-100 shadow-xl w-full">
-      <figure className="px-4 pt-4">
-        <img
-          src={photoURL}
-          alt={`${firstName} ${lastName}`}
-          className="h-64 w-full rounded-xl object-cover"
-        />
-      </figure>
+    <div className="card bg-base-100 border border-base-300 shadow-md hover:shadow-xl transition-all duration-200 overflow-hidden">
 
-      <div className="card-body">
-        <h2 className="card-title text-2xl">
-          {firstName} {lastName}
-        </h2>
+      {/* Cover */}
+      <div className="h-24 bg-gradient-to-r from-primary/80 to-secondary/80" />
 
-        <p className="text-sm opacity-70">
-          {age} · {gender}
-        </p>
+      <div className="card-body pt-0">
 
-        <p className="mt-2">
-          {about}
-        </p>
+        {/* Profile Header */}
+        <div className="flex items-end gap-4 -mt-12">
 
-        <div className="flex flex-wrap gap-2 mt-3">
-          {skills?.map((skill) => (
-            <span
-              key={skill}
-              className="badge badge-primary"
-            >
-              {skill}
-            </span>
-          ))}
+          <div className="avatar">
+            <div className="w-24 rounded-full ring-4 ring-base-100">
+              <img
+                src={photoURL}
+                alt={`${firstName} ${lastName}`}
+              />
+            </div>
+          </div>
+
+          <div className="pb-2 min-w-0">
+            <h2 className="text-xl font-bold truncate">
+              {firstName} {lastName}
+            </h2>
+
+            <p className="text-sm opacity-60">
+              {age} · {gender}
+            </p>
+          </div>
+
         </div>
 
-        <div className="card-actions justify-between mt-5">
+        {/* About */}
+        <div className="mt-5">
+          <p className="text-sm leading-relaxed line-clamp-3">
+            {about || "No introduction available."}
+          </p>
+        </div>
+
+        {/* Skills */}
+        <div className="mt-4">
+          <div className="flex flex-wrap gap-2">
+            {skills?.slice(0, 5).map((skill) => (
+              <span
+                key={skill}
+                className="badge badge-primary badge-outline"
+              >
+                {skill}
+              </span>
+            ))}
+
+            {skills?.length > 5 && (
+              <span className="badge badge-ghost">
+                +{skills.length - 5}
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Divider */}
+        <div className="divider my-3" />
+
+        {/* Actions */}
+        <div className="flex gap-2">
+
+          <button
+            onClick={() => navigate(`/profile/${user._id}`)}
+            disabled={action !== null}
+            className="btn btn-outline btn-info flex-1"
+          >
+            View Profile
+          </button>
+
+          <button
+            onClick={handleIgnore}
+            disabled={action !== null}
+            className="btn btn-outline btn-error"
+            title="Ignore"
+          >
+            {action === "ignore" ? (
+              <span className="loading loading-spinner loading-sm" />
+            ) : (
+              "Ignore"
+            )}
+          </button>
+
           <button
             onClick={handleInterested}
-            disabled={isLoading}
+            disabled={action !== null}
             className="btn btn-primary"
           >
-            {isLoading ? (
-              <span className="loading loading-spinner loading-sm"></span>
+            {action === "interested" ? (
+              <span className="loading loading-spinner loading-sm" />
             ) : (
               "Interested"
             )}
           </button>
 
-          <button
-            onClick={handleIgnore}
-            disabled={isLoading}
-            className="btn btn-outline"
-          >
-            {isLoading ? (
-              <span className="loading loading-spinner loading-sm"></span>
-            ) : (
-              "Ignore"
-            )}
-          </button>
         </div>
+
       </div>
     </div>
   );

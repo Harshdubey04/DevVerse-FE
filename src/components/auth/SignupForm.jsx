@@ -37,15 +37,15 @@ function SignupForm() {
 
       const response = await signupUser(data);
       //Adding data to the store
-      dispatch(addUser(response.data));
+      dispatch(addUser(response?.data));
       navigate("/feed");
 
     } catch (error) {
-      setServerError(
-        error?.response?.data?.message || "Something went wrong"
-      )
+        setServerError(
+            error?.message || "Something went wrong"
+        );
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
   };
 
