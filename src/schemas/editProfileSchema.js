@@ -8,7 +8,8 @@ export const editProfileSchema = z.object({
 
     lastName: z
         .string()
-        .max(50, "Last name is too long"),
+        .max(50, "Last name is too long")
+        .optional(),
 
     photoURL: z
         .string()
@@ -24,7 +25,8 @@ export const editProfileSchema = z.object({
 
     about: z
         .string()
-        .max(500, "About cannot exceed 300 characters"),
+        .max(500, "About cannot exceed 300 characters")
+        .optional(),
 
     skills: z.preprocess(
         (value) => {
@@ -40,5 +42,6 @@ export const editProfileSchema = z.object({
         z
             .array(z.string())
             .max(15, "You can add maximum 15 skills")
+            .optional(),
     ),
 });

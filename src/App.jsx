@@ -15,7 +15,7 @@ import ConnectionRequestPage from "./pages/connections/ConnectionRequestPage";
 import UserProfilePage from "./pages/profile/UserProfilePage";
 
 function App() {
-  return (
+  return ( 
     <Routes>
       {/* Public Routes */}
       <Route element={<GuestRoute />}>
